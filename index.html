@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keerthik Roshan G | AI & Music</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(26, 26, 30, 0.8); /* Semi-transparent for glass effect */
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --accent: #8A2BE2; /* BlueViolet/Neon Purple */
+            --accent-glow: #8A2BE280;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            line-height: 1.6;
+            /* Subtle gradient background */
+            background: radial-gradient(circle at 10% 20%, rgb(20, 20, 30) 0%, rgb(5, 5, 5) 90%);
+            min-height: 100vh;
+        }
+
+        /* Layout & Container */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 5rem 0; }
+
+        /* HERO SECTION */
+        header { 
+            min-height: 90vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; /* Puts text left, image right */
+        }
+        
+        .hero-content { max-width: 600px; }
+        
+        .hero-tag { 
+            font-size: 1.1rem; 
+            color: var(--accent); 
+            font-weight: 600; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem; 
+            display: block;
+        }
+
+        h1 { 
+            font-size: 3.5rem; 
+            font-weight: 700; 
+            line-height: 1.1; 
+            margin-bottom: 1rem;
+            background: -webkit-linear-gradient(#fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem; font-weight: 300; }
+
+        /* Profile Picture Styling */
+        .profile-img-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, var(--accent), transparent);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: #1a1a1e; /* Fallback if image missing */
+        }
+
+        .btn { 
+            padding: 12px 35px; 
+            background: var(--accent); 
+            color: #fff; 
+            border-radius: 50px; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: 0.3s; 
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+        .btn:hover { background: #9d4eff; transform: translateY(-3px); }
+
+        /* SECTIONS & CARDS */
+        h2 { 
+            font-size: 2.2rem; 
+            margin-bottom: 2.5rem; 
+            position: relative; 
+            display: inline-block;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+        .card { 
+            background: var(--card-bg); 
+            padding: 2rem; 
+            border-radius: 16px; 
+            border: 1px solid #333; 
+            transition: 0.3s ease;
+            backdrop-filter: blur(10px); /* Glassmorphism */
+        }
+        
+        .card:hover { 
+            transform: translateY(-7px); 
+            border-color: var(--accent); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card h3 { font-size: 1.3rem; color: #fff; margin-bottom: 0.5rem; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+        .tags span { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.05); 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.75rem; 
+            margin-right: 5px; 
+            margin-bottom: 5px; 
+            color: #ccc; 
+            border: 1px solid #333;
+        }
+
+        /* CONTACT */
+        .contact-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+        .contact-item { 
+            color: #fff; 
+            font-size: 1.5rem; 
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+        .contact-item:hover { color: var(--accent); opacity: 1; transform: scale(1.1); }
+
+        footer { text-align: center; padding: 4rem 0; color: #555; font-size: 0.9rem; margin-top: 3rem; border-top: 1px solid #222; }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            header { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 2rem; }
+            h1 { font-size: 2.5rem; }
+            .profile-img-container { width: 200px; height: 200px; margin-bottom: 1rem; }
+            h2::after { left: 50%; transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <div class="hero-content">
+            <span class="hero-tag">Portfolio</span>
+            <h1>KEERTHIK ROSHAN G.</h1>
+            <p class="hero-sub">
+                AI & Data Science Student | Music Producer | Data Scientist Intern.<br>
+                Exploring the edge of <strong>Generative AI</strong> and <strong>Sound Design</strong>.
+            </p>
+            <a href="#contact" class="btn">Let's Connect</a>
+        </div>
+        
+        <div class="profile-img-container">
+            <img src="images/profile.jpg" alt="Keerthik Roshan" class="profile-img">
+        </div>
+    </header>
+
+    <section id="about" class="container">
+        <h2>About Me</h2>
+        <p style="max-width: 800px; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+            I am a 20-year-old AI & Data Science student driven by the urge to experiment with the development and management of <strong>LLMs and Agentic AI</strong>.
+            <br><br>
+            A dedicated tech enthusiast since school, I actively explore open-source ecosystems—dissecting new frameworks to deploy AI effectively. When I'm not training models, I'm analyzing legal frameworks or channeling creativity into <strong>Music Production & Direction</strong>.
+        </p>
+    </section>
+
+    <section id="experience" class="container">
+        <h2>Experience</h2>
+        <div class="grid">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div>
+                        <h3>Data Science Intern</h3>
+                        <p style="color: var(--accent); font-weight: 600;">DigiDARA Technologies, Trichy</p>
+                    </div>
+                    <span style="font-size: 0.8rem; color: #666; border: 1px solid #333; padding: 2px 8px; border-radius: 5px;">1 Month</span>
+                </div>
+                <ul style="padding-left: 20px; color: var(--text-muted);">
+                    <li>Proficiency in Python, SQL, and Data Science libraries.</li>
+                    <li>Conducted EDA on Loan Approval datasets.</li>
+                    <li>Deployed predictive models for efficiency testing (Capstone).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="container">
+        <h2>Selected Works</h2>
+        <div class="grid">
+            
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>VidhiDesk</h3>
+                    <span style="color: #FFC107; font-size: 0.7rem; border: 1px solid #FFC107; padding: 2px 6px; border-radius: 4px;">IN PROGRESS</span>
+                </div>
+                <p style="margin-top: 10px;">Python-based legal research assistant for law students. Parses legal databases to streamline case finding and documentation.</p>
+                <div class="tags">
+                    <span>Python</span>
+                    <span>NLP</span>
+                    <span>Legal Tech</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Equality & Affirmative Action</h3>
+                <p>Research paper on "Sub-categorization in Reservations and Social Justice Dilemmas." Analyzed for UNOM Dept of Legal Studies.</p>
+                <div class="tags">
+                    <span>Research</span>
+                    <span>Constitutional Law</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="skills" class="container">
+        <h2>Tech & Art</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="card" style="border-left: 3px solid var(--accent);">
+                <h3>Code</h3>
+                <div class="tags">
+                    <span>Python</span>
+                    <span>SQL</span>
+                    <span>Pandas/NumPy</span>
+                    <span>LLMs</span>
+                    <span>JavaScript (Learning)</span>
+                </div>
+            </div>
+            <div class="card" style="border-left: 3px solid var(--accent);">
+                <h3>Creative</h3>
+                <div class="tags">
+                    <span>FL Studio</span>
+                    <span>Music Production</span>
+                    <span>Vocals</span>
+                    <span>Typography</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container" style="text-align: center;">
+        <h2>Let's Connect</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Drop an email or check out my repos.</p>
+        
+        <div class="contact-links">
+            <a href="mailto:gkrosh.0712@gmail.com" class="contact-item">Email</a>
+            <a href="https://linkedin.com/in/keerthikroshan" target="_blank" class="contact-item">LinkedIn</a>
+            <a href="https://github.com/KeerthikRoshan7" target="_blank" class="contact-item">GitHub</a>
+            <a href="https://instagram.com/roznmusic" target="_blank" class="contact-item">Instagram</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Keerthik Roshan G.</p>
+    </footer>
+
+</body>
+</html>
