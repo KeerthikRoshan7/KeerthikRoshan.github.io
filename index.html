@@ -3,299 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keerthik Roshan G | Future Tech</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Keerthik Roshan G | AI & Sound</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --bg-color: #050508;
+            --bg-dark: #050510;
             --glass-bg: rgba(20, 20, 35, 0.4);
-            --glass-border: rgba(100, 100, 255, 0.2);
+            --glass-border: rgba(100, 100, 255, 0.1);
             --text-main: #ffffff;
-            --text-muted: #b0b0d0;
-            
-            /* Royal Blue to Purple Gradients */
-            --gradient-main: linear-gradient(135deg, #4c00ff, #bd00ff);
-            --accent-blue: #4c00ff;
-            --accent-purple: #bd00ff;
-            --neon-glow: 0 0 20px rgba(76, 0, 255, 0.6);
+            --text-muted: #a0a0ff; /* Light purple-blue text */
+            --accent-blue: #2563eb; /* Royal Blue */
+            --accent-purple: #9333ea; /* Neon Purple */
+            --glow: 0 0 20px rgba(147, 51, 234, 0.5);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body { 
-            background-color: var(--bg-color); 
+            background-color: var(--bg-dark); 
             color: var(--text-main); 
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             position: relative;
         }
 
         /* PARTICLE CANVAS BACKGROUND */
-        canvas {
+        #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #0a0a15 0%, #000000 100%);
+            z-index: -1; /* Behind everything */
+            background: radial-gradient(circle at 50% 50%, #0f0c29, #302b63, #24243e); /* Deep space gradient */
         }
 
-        /* Layout */
+        /* LAYOUT */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
-        section { padding: 6rem 0; }
+        section { padding: 5rem 0; }
 
-        /* LIQUID GLASS CARD STYLING */
+        /* LIQUID GLASS CARD STYLE */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255, 255, 255, 0.2); /* Highlight top for liquid look */
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 1px solid rgba(255, 255, 255, 0.3); /* Top light reflection */
-            border-left: 1px solid rgba(255, 255, 255, 0.3); /* Left light reflection */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
+
+        /* FLOAT ANIMATION */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating { animation: float 6s ease-in-out infinite; }
+        .floating-delay { animation: float 7s ease-in-out infinite 1s; }
 
         .glass-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(189, 0, 255, 0.5);
-            box-shadow: 0 15px 40px rgba(76, 0, 255, 0.2);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.2); /* Royal blue glow on hover */
+            border-color: var(--accent-purple);
         }
-        
-        /* Refractive shine effect on hover */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
-            transform: skewX(-25deg);
-            transition: 0.5s;
-        }
-        .glass-card:hover::before { left: 150%; }
 
-        /* TYPOGRAPHY & HERO */
+        /* HEADER & HERO */
         header { 
-            min-height: 90vh; 
+            min-height: 100vh; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            padding-top: 50px; /* Space for aesthetic breathing */
+            padding-top: 40px; /* Space for navbar if added later */
         }
-        
-        .hero-tag { 
-            font-size: 1rem; 
-            font-weight: 700; 
-            letter-spacing: 3px; 
-            text-transform: uppercase;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem; 
-            display: inline-block;
-        }
+
+        .hero-content { max-width: 600px; }
 
         h1 { 
-            font-size: 4rem; 
-            font-weight: 800; 
-            line-height: 1.1; 
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 30px rgba(76, 0, 255, 0.3);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem; 
+            font-weight: 700; 
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #fff, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 0px 30px rgba(37, 99, 235, 0.5);
         }
 
-        .hero-sub { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; }
-
-        /* PROFILE IMAGE - LIQUID RING */
-        .profile-wrapper {
-            position: relative;
-            margin-top: 3rem; /* Pushed down slightly per request */
-        }
-        
-        .profile-img-container {
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            padding: 6px;
-            background: var(--gradient-main);
-            box-shadow: var(--neon-glow);
-            position: relative;
-            z-index: 2;
-            animation: pulse-ring 3s infinite;
+        .hero-tag { 
+            color: var(--accent-blue); 
+            font-weight: 600; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            margin-bottom: 10px; 
+            display: block;
         }
 
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            background-color: #000;
-            border: 4px solid #1a1a2e;
-        }
-
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(189, 0, 255, 0.4); }
-            70% { box-shadow: 0 0 0 20px rgba(189, 0, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(189, 0, 255, 0); }
-        }
+        .hero-sub { font-size: 1.2rem; color: #ccc; margin-bottom: 2rem; }
 
         /* BUTTONS */
         .btn { 
             padding: 14px 40px; 
-            background: var(--gradient-main); 
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
             color: #fff; 
             border-radius: 50px; 
             font-weight: 600; 
             text-decoration: none; 
-            box-shadow: var(--neon-glow);
-            transition: 0.3s;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s; 
+            box-shadow: 0 4px 20px rgba(147, 51, 234, 0.4);
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        .btn:hover { filter: brightness(1.2); transform: scale(1.05); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(147, 51, 234, 0.6); }
+
+        /* PROFILE IMAGE - MOVED DOWN & GLOWING */
+        .profile-container {
+            position: relative;
+            margin-top: 50px; /* MOVED DOWN AS REQUESTED */
+        }
+        
+        .profile-blob {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px; height: 320px;
+            background: linear-gradient(var(--accent-blue), var(--accent-purple));
+            filter: blur(60px);
+            opacity: 0.6;
+            z-index: -1;
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); } }
+
+        .profile-img {
+            width: 300px; height: 300px;
+            border-radius: 30px; /* Squircle shape */
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: rotate(-3deg);
+            transition: 0.5s;
+        }
+        .profile-img:hover { transform: rotate(0deg) scale(1.05); }
 
         /* SECTIONS */
         h2 { 
+            font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem; 
             margin-bottom: 3rem; 
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
             display: inline-block;
+            border-bottom: 3px solid var(--accent-purple);
+            padding-bottom: 5px;
         }
 
-        /* GRID SYSTEM */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
 
-        .card-content { padding: 2.5rem; }
-        .card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
-
-        /* TAGS */
-        .tags span { 
-            display: inline-block; 
-            background: rgba(76, 0, 255, 0.15); 
-            border: 1px solid rgba(76, 0, 255, 0.4);
-            padding: 6px 14px; 
-            border-radius: 20px; 
-            font-size: 0.75rem; 
-            margin-right: 6px; 
-            margin-bottom: 6px; 
-            color: #e0d0ff; 
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .card-title { font-size: 1.4rem; color: #fff; font-weight: 600; }
+        .card-badge { 
+            background: rgba(37, 99, 235, 0.2); 
+            color: #60a5fa; 
+            padding: 4px 10px; 
+            border-radius: 8px; 
+            font-size: 0.8rem; 
+            border: 1px solid rgba(37, 99, 235, 0.4);
         }
+
+        .tech-tags span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 5px 5px 0 0;
+            color: #d1d5db;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        .tech-tags span:hover { background: var(--accent-purple); color: #fff; border-color: var(--accent-purple); }
 
         /* CONTACT ICONS */
-        .contact-links { display: flex; gap: 20px; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
-        .contact-item { 
-            padding: 10px 25px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 30px;
+        .contact-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+        .icon-link {
+            width: 60px; height: 60px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
             color: #fff;
-            text-decoration: none;
             transition: 0.3s;
-            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
         }
-        .contact-item:hover { 
-            background: var(--accent-blue); 
-            border-color: var(--accent-blue);
-            box-shadow: var(--neon-glow);
-        }
-
-        /* FOOTER */
-        footer { 
-            text-align: center; 
-            padding: 4rem 0; 
-            color: #666; 
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 4rem;
+        .icon-link:hover {
+            background: var(--accent-purple);
+            box-shadow: 0 0 20px var(--accent-purple);
+            transform: translateY(-5px);
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            header { flex-direction: column-reverse; text-align: center; justify-content: center; padding-top: 20px; }
-            h1 { font-size: 2.8rem; }
-            .profile-wrapper { margin-bottom: 2rem; margin-top: 1rem; }
-            .profile-img-container { width: 220px; height: 220px; }
+        /* MOBILE FIXES */
+        @media (max-width: 768px) {
+            header { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 3rem; }
+            h1 { font-size: 2.5rem; }
+            .profile-container { margin-top: 0; }
+            .profile-img { width: 220px; height: 220px; }
+            .profile-blob { width: 240px; height: 240px; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particles"></canvas>
+    <canvas id="particle-canvas"></canvas>
 
     <header class="container">
         <div class="hero-content">
-            <span class="hero-tag">Portfolio 2026</span>
+            <span class="hero-tag">Portfolio</span>
             <h1>KEERTHIK ROSHAN G.</h1>
             <p class="hero-sub">
                 AI & Data Science Student | Music Producer | Data Scientist Intern.<br>
-                Merging the precision of <strong>Artificial Intelligence</strong> with the fluidity of <strong>Sound Design</strong>.
+                Exploring the edge of <strong>Generative AI</strong> and <strong>Sound Design</strong>.
             </p>
-            <a href="#contact" class="btn">Initialize Connection</a>
+            <a href="#contact" class="btn">
+                <span>Connect With Me</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
         
-        <div class="profile-wrapper">
-            <div class="profile-img-container">
-                <img src="images/profile.jpg" alt="Keerthik Roshan" class="profile-img">
-            </div>
+        <div class="profile-container floating">
+            <div class="profile-blob"></div>
+            <img src="images/profile.jpg" alt="Keerthik Roshan" class="profile-img">
         </div>
     </header>
 
     <section id="about" class="container">
-        <div class="glass-card card-content">
-            <h2>System Identity</h2>
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #d0d0e0;">
-                I am a 20-year-old AI & Data Science student obsessed with the architecture of <strong>LLMs, Generative, and Agentic AI</strong>.
+        <h2>About Me</h2>
+        <div class="glass-card">
+            <p style="color: #d1d5db; font-size: 1.1rem; line-height: 1.8;">
+                I am a 20-year-old AI & Data Science student driven by the urge to experiment with the development and management of <strong style="color: var(--accent-purple);">LLMs and Agentic AI</strong>.
                 <br><br>
-                My methodology involves dissecting open-source frameworks to build tools that solve real human problems—like <strong>VidhiDesk</strong>. When the terminal closes, I shift to <strong>FL Studio</strong>, where I orchestrate complex rhythms and vocal harmonies, proving that logic and art are just different forms of code.
+                A dedicated tech enthusiast since school, I actively explore open-source ecosystems—dissecting new frameworks to deploy AI effectively. When I'm not training models, I'm analyzing legal frameworks or channeling creativity into <strong style="color: var(--accent-blue);">Music Production & Direction</strong>.
             </p>
         </div>
     </section>
 
     <section id="experience" class="container">
-        <h2>Professional Logs</h2>
+        <h2>Experience</h2>
         <div class="grid">
-            <div class="glass-card card-content">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div class="glass-card floating-delay">
+                <div class="card-header">
                     <div>
-                        <h3 style="color: #a080ff;">Data Science Intern</h3>
-                        <p style="color: #fff; font-weight: 600; margin: 0;">DigiDARA Technologies, Trichy</p>
+                        <div class="card-title">Data Science Intern</div>
+                        <div style="color: var(--accent-blue); font-size: 0.9rem;">DigiDARA Technologies, Trichy</div>
                     </div>
-                    <span style="font-size: 0.8rem; color: #a080ff; border: 1px solid #a080ff; padding: 2px 10px; border-radius: 10px;">COMPLETED</span>
+                    <div class="card-badge">1 Month</div>
                 </div>
-                <ul style="padding-left: 20px; color: var(--text-muted);">
-                    <li style="margin-bottom: 10px;">Mastered the Data Science stack: Python, SQL, and Pandas.</li>
-                    <li style="margin-bottom: 10px;">Executed Exploratory Data Analysis (EDA) on financial Loan Approval datasets.</li>
-                    <li>Deployed predictive models for accuracy testing (Internship Capstone).</li>
+                <ul style="padding-left: 20px; color: #ccc; margin-top: 15px; line-height: 1.6;">
+                    <li>Proficiency in Python, SQL, and Data Science libraries.</li>
+                    <li>Conducted EDA on Loan Approval datasets.</li>
+                    <li>Deployed predictive models for efficiency testing (Capstone).</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <section id="projects" class="container">
-        <h2>Deployed Units</h2>
+        <h2>Selected Works</h2>
         <div class="grid">
             
-            <div class="glass-card card-content">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h3>VidhiDesk</h3>
-                    <span style="color: #FFC107; font-size: 0.7rem; border: 1px solid rgba(255, 193, 7, 0.5); padding: 2px 8px; border-radius: 4px;">RUNNING</span>
+            <div class="glass-card floating">
+                <div class="card-header">
+                    <div class="card-title">VidhiDesk</div>
+                    <div class="card-badge" style="border-color: #ffd700; color: #ffd700; background: rgba(255, 215, 0, 0.1);">IN PROGRESS</div>
                 </div>
-                <p>An intelligent legal research assistant. Parses legal databases using Python to streamline case finding and legal documentation for students.</p>
-                <div class="tags">
+                <p style="color: #ccc; margin-bottom: 15px;">Python-based legal research assistant for law students. Parses legal databases to streamline case finding and documentation.</p>
+                <div class="tech-tags">
                     <span>Python</span>
                     <span>NLP</span>
                     <span>Legal Tech</span>
                 </div>
             </div>
 
-            <div class="glass-card card-content">
-                <h3>Equality Protocol</h3>
-                <p>Research paper on "Sub-categorization in Reservations." Analyzed constitutional frameworks for the UNOM Dept of Legal Studies.</p>
-                <div class="tags">
+            <div class="glass-card floating-delay">
+                <div class="card-header">
+                    <div class="card-title">Equality Research</div>
+                    <div class="card-badge">PUBLISHED</div>
+                </div>
+                <p style="color: #ccc; margin-bottom: 15px;">Research paper on "Sub-categorization in Reservations." Analyzed for UNOM Dept of Legal Studies.</p>
+                <div class="tech-tags">
                     <span>Research</span>
                     <span>Constitutional Law</span>
                 </div>
@@ -305,135 +310,108 @@
     </section>
 
     <section id="skills" class="container">
-        <h2>Arsenal</h2>
-        <div class="grid">
-            <div class="glass-card card-content" style="border-left: 4px solid var(--accent-blue);">
-                <h3>Core Processing</h3>
-                <div class="tags">
+        <h2>Tech & Art</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="glass-card" style="border-left: 4px solid var(--accent-blue);">
+                <h3 style="margin-bottom: 15px; color: #fff;"><i class="fas fa-code"></i> Code</h3>
+                <div class="tech-tags">
                     <span>Python</span>
                     <span>SQL</span>
                     <span>Pandas/NumPy</span>
-                    <span>LLM Architecture</span>
-                    <span>JavaScript (Loading...)</span>
+                    <span>LLMs</span>
+                    <span>JavaScript (Learning)</span>
                 </div>
             </div>
-            <div class="glass-card card-content" style="border-left: 4px solid var(--accent-purple);">
-                <h3>Creative Engine</h3>
-                <div class="tags">
+            <div class="glass-card" style="border-left: 4px solid var(--accent-purple);">
+                <h3 style="margin-bottom: 15px; color: #fff;"><i class="fas fa-music"></i> Creative</h3>
+                <div class="tech-tags">
                     <span>FL Studio</span>
                     <span>Music Production</span>
                     <span>Vocals</span>
                     <span>Typography</span>
-                    <span>Sound Design</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="container" style="text-align: center;">
-        <h2 style="margin-bottom: 1rem;">Establish Link</h2>
-        <p style="color: var(--text-muted); margin-bottom: 2rem;">Open for collaboration in AI Research or Audio Production.</p>
+    <section id="contact" class="container" style="text-align: center; margin-bottom: 4rem;">
+        <h2>Let's Connect</h2>
+        <p style="color: #ccc; margin-bottom: 2rem;">Drop an email or check out my repos.</p>
         
-        <div class="contact-links">
-            <a href="mailto:gkrosh.0712@gmail.com" class="contact-item">Email</a>
-            <a href="https://linkedin.com/in/keerthikroshan" target="_blank" class="contact-item">LinkedIn</a>
-            <a href="https://github.com/KeerthikRoshan7" target="_blank" class="contact-item">GitHub</a>
-            <a href="https://instagram.com/roznmusic" target="_blank" class="contact-item">Instagram</a>
+        <div class="contact-grid">
+            <a href="mailto:gkrosh.0712@gmail.com" class="icon-link" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/keerthikroshan" target="_blank" class="icon-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/KeerthikRoshan7" target="_blank" class="icon-link" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://instagram.com/roznmusic" target="_blank" class="icon-link" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </section>
 
-    <footer>
-        <p>© 2026 Keerthik Roshan G. | System Online</p>
+    <footer style="text-align: center; padding: 2rem; color: #555; border-top: 1px solid rgba(255,255,255,0.1);">
+        <p>© 2026 Keerthik Roshan G. Built with Code & Sound.</p>
     </footer>
 
     <script>
-        const canvas = document.getElementById('particles');
+        const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        
-        let width, height;
-        let particles = [];
-        
-        // Royal Blue & Purple Palette
-        const colors = ['#4c00ff', '#bd00ff', '#ffffff'];
+        let particlesArray;
 
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
         class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5; // Slow float speed
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.alpha = Math.random() * 0.5 + 0.2;
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
             }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                // Bounce off edges
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
                 ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.alpha;
                 ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
             }
         }
 
         function init() {
-            particles = [];
-            // Number of particles based on screen size
-            const count = Math.floor(window.innerWidth / 10); 
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.4) - 0.2;
+                let directionY = (Math.random() * 0.4) - 0.2;
+                // Royal Blue and Purple Colors
+                let color = Math.random() > 0.5 ? 'rgba(37, 99, 235, 0.7)' : 'rgba(147, 51, 234, 0.7)'; 
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, width, height);
-            
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
-            // Draw connections (Tech Constellation Effect)
-            ctx.strokeStyle = 'rgba(76, 0, 255, 0.15)'; // Low opacity blue lines
-            ctx.lineWidth = 0.5;
-            
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 100) { // Connect if close
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
             }
         }
 
-        window.addEventListener('resize', () => {
-            resize();
+        window.addEventListener('resize', function() {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
             init();
         });
 
-        resize();
         init();
         animate();
     </script>
