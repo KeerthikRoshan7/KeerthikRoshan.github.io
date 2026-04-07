@@ -3,417 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keerthik Roshan G | AI & Sound</title>
+    <title>Keerthik Roshan G | Portfolio</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-dark: #050510;
-            --glass-bg: rgba(20, 20, 35, 0.4);
-            --glass-border: rgba(100, 100, 255, 0.1);
-            --text-main: #ffffff;
-            --text-muted: #a0a0ff; /* Light purple-blue text */
-            --accent-blue: #2563eb; /* Royal Blue */
-            --accent-purple: #9333ea; /* Neon Purple */
-            --glow: 0 0 20px rgba(147, 51, 234, 0.5);
+            --bg-dark: #0a0a0c;
+            --accent-green: #e3fc65; /* The signature lime green */
+            --text-light: #ffffff;
+            --text-dark: #111111;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            font-family: 'Poppins', sans-serif;
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* PARTICLE CANVAS BACKGROUND */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Behind everything */
-            background: radial-gradient(circle at 50% 50%, #0f0c29, #302b63, #24243e); /* Deep space gradient */
-        }
-
-        /* LAYOUT */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
-        section { padding: 5rem 0; }
-
-        /* LIQUID GLASS CARD STYLE */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-top: 1px solid rgba(255, 255, 255, 0.2); /* Highlight top for liquid look */
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        /* FLOAT ANIMATION */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .floating { animation: float 6s ease-in-out infinite; }
-        .floating-delay { animation: float 7s ease-in-out infinite 1s; }
-
-        .glass-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.2); /* Royal blue glow on hover */
-            border-color: var(--accent-purple);
-        }
-
-        /* HEADER & HERO */
-        header { 
-            min-height: 100vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding-top: 40px; /* Space for navbar if added later */
-        }
-
-        .hero-content { max-width: 600px; }
-
-        h1 { 
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem; 
-            font-weight: 700; 
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #fff, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0px 0px 30px rgba(37, 99, 235, 0.5);
-        }
-
-        .hero-tag { 
-            color: var(--accent-blue); 
-            font-weight: 600; 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-            margin-bottom: 10px; 
-            display: block;
-        }
-
-        .hero-sub { font-size: 1.2rem; color: #ccc; margin-bottom: 2rem; }
-
-        /* BUTTONS */
-        .btn { 
-            padding: 14px 40px; 
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            color: #fff; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            text-decoration: none; 
-            display: inline-flex;
+        /* --- LEFT COLUMN (DARK) --- */
+        .left-col {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            transition: 0.3s; 
-            box-shadow: 0 4px 20px rgba(147, 51, 234, 0.4);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(147, 51, 234, 0.6); }
-
-        /* PROFILE IMAGE - MOVED DOWN & GLOWING */
-        .profile-container {
-            position: relative;
-            margin-top: 50px; /* MOVED DOWN AS REQUESTED */
-        }
-        
-        .profile-blob {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 320px; height: 320px;
-            background: linear-gradient(var(--accent-blue), var(--accent-purple));
-            filter: blur(60px);
-            opacity: 0.6;
-            z-index: -1;
-            animation: pulse 4s infinite alternate;
+            padding: 3rem;
+            text-align: center;
         }
 
-        @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); } }
-
-        .profile-img {
-            width: 300px; height: 300px;
-            border-radius: 30px; /* Squircle shape */
+        .profile-pic {
+            width: 220px;
+            height: 220px;
+            border-radius: 40px; /* Squircle shape */
             object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform: rotate(-3deg);
-            transition: 0.5s;
-        }
-        .profile-img:hover { transform: rotate(0deg) scale(1.05); }
-
-        /* SECTIONS */
-        h2 { 
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem; 
-            margin-bottom: 3rem; 
-            color: #fff;
-            display: inline-block;
-            border-bottom: 3px solid var(--accent-purple);
-            padding-bottom: 5px;
+            margin-bottom: 2rem;
+            background-color: #222; /* Fallback */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .card-title { font-size: 1.4rem; color: #fff; font-weight: 600; }
-        .card-badge { 
-            background: rgba(37, 99, 235, 0.2); 
-            color: #60a5fa; 
-            padding: 4px 10px; 
-            border-radius: 8px; 
-            font-size: 0.8rem; 
-            border: 1px solid rgba(37, 99, 235, 0.4);
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
-        .tech-tags span {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px 12px;
-            border-radius: 20px;
+        .subtitle {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #aaaaaa;
+            margin-bottom: 3rem;
+        }
+
+        .social-header {
             font-size: 0.8rem;
-            margin: 5px 5px 0 0;
-            color: #d1d5db;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
         }
-        .tech-tags span:hover { background: var(--accent-purple); color: #fff; border-color: var(--accent-purple); }
 
-        /* CONTACT ICONS */
-        .contact-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
-        .icon-link {
-            width: 60px; height: 60px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            color: var(--accent-green);
             font-size: 1.5rem;
-            color: #fff;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-        }
-        .icon-link:hover {
-            background: var(--accent-purple);
-            box-shadow: 0 0 20px var(--accent-purple);
-            transform: translateY(-5px);
+            text-decoration: none;
+            transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        /* MOBILE FIXES */
-        @media (max-width: 768px) {
-            header { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 3rem; }
-            h1 { font-size: 2.5rem; }
-            .profile-container { margin-top: 0; }
-            .profile-img { width: 220px; height: 220px; }
-            .profile-blob { width: 240px; height: 240px; }
+        .social-icons a:hover {
+            transform: scale(1.1);
+            color: #fff;
+        }
+
+
+        /* --- RIGHT COLUMN (GREEN) --- */
+        .right-col {
+            width: 60%;
+            background-color: var(--accent-green);
+            color: var(--text-dark);
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            padding: 5rem 6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #222;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #222;
+            border: none;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Timeline Items */
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .timeline-year {
+            font-size: 1.1rem;
+            font-weight: 700;
+            min-width: 80px;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-content span {
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        /* Resume Button */
+        .btn-resume {
+            display: block;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            padding: 18px 0;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 5px;
+            max-width: 600px;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-resume:hover {
+            background-color: #333;
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 960px) {
+            body {
+                flex-direction: column;
+            }
+            .left-col {
+                width: 100%;
+                padding: 4rem 2rem;
+            }
+            .right-col {
+                width: 100%;
+                border-radius: 40px 40px 0 0;
+                padding: 4rem 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
-
-    <header class="container">
-        <div class="hero-content">
-            <span class="hero-tag">Portfolio</span>
-            <h1>KEERTHIK ROSHAN G.</h1>
-            <p class="hero-sub">
-                AI & Data Science Student | Music Producer | Data Scientist Intern.<br>
-                Exploring the edge of <strong>Generative AI</strong> and <strong>Sound Design</strong>.
-            </p>
-            <a href="#contact" class="btn">
-                <span>Connect With Me</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
+    <div class="left-col">
+        <img src="images/profile.jpg" alt="Keerthik Roshan G" class="profile-pic">
         
-        <div class="profile-container floating">
-            <div class="profile-blob"></div>
-            <img src="images/profile.jpg" alt="Keerthik Roshan" class="profile-img">
-        </div>
-    </header>
-
-    <section id="about" class="container">
-        <h2>About Me</h2>
-        <div class="glass-card">
-            <p style="color: #d1d5db; font-size: 1.1rem; line-height: 1.8;">
-                I am a 20-year-old AI & Data Science student driven by the urge to experiment with the development and management of <strong style="color: var(--accent-purple);">LLMs and Agentic AI</strong>.
-                <br><br>
-                A dedicated tech enthusiast since school, I actively explore open-source ecosystems—dissecting new frameworks to deploy AI effectively. When I'm not training models, I'm analyzing legal frameworks or channeling creativity into <strong style="color: var(--accent-blue);">Music Production & Direction</strong>.
-            </p>
-        </div>
-    </section>
-
-    <section id="experience" class="container">
-        <h2>Experience</h2>
-        <div class="grid">
-            <div class="glass-card floating-delay">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">Data Science Intern</div>
-                        <div style="color: var(--accent-blue); font-size: 0.9rem;">DigiDARA Technologies, Trichy</div>
-                    </div>
-                    <div class="card-badge">1 Month</div>
-                </div>
-                <ul style="padding-left: 20px; color: #ccc; margin-top: 15px; line-height: 1.6;">
-                    <li>Proficiency in Python, SQL, and Data Science libraries.</li>
-                    <li>Conducted EDA on Loan Approval datasets.</li>
-                    <li>Deployed predictive models for efficiency testing (Capstone).</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="container">
-        <h2>Selected Works</h2>
-        <div class="grid">
-            
-            <div class="glass-card floating">
-                <div class="card-header">
-                    <div class="card-title">VidhiDesk</div>
-                    <div class="card-badge" style="border-color: #ffd700; color: #ffd700; background: rgba(255, 215, 0, 0.1);">IN PROGRESS</div>
-                </div>
-                <p style="color: #ccc; margin-bottom: 15px;">Python-based legal research assistant for law students. Parses legal databases to streamline case finding and documentation.</p>
-                <div class="tech-tags">
-                    <span>Python</span>
-                    <span>NLP</span>
-                    <span>Legal Tech</span>
-                </div>
-            </div>
-
-            <div class="glass-card floating-delay">
-                <div class="card-header">
-                    <div class="card-title">Equality Research</div>
-                    <div class="card-badge">PUBLISHED</div>
-                </div>
-                <p style="color: #ccc; margin-bottom: 15px;">Research paper on "Sub-categorization in Reservations." Analyzed for UNOM Dept of Legal Studies.</p>
-                <div class="tech-tags">
-                    <span>Research</span>
-                    <span>Constitutional Law</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="skills" class="container">
-        <h2>Tech & Art</h2>
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-            <div class="glass-card" style="border-left: 4px solid var(--accent-blue);">
-                <h3 style="margin-bottom: 15px; color: #fff;"><i class="fas fa-code"></i> Code</h3>
-                <div class="tech-tags">
-                    <span>Python</span>
-                    <span>SQL</span>
-                    <span>Pandas/NumPy</span>
-                    <span>LLMs</span>
-                    <span>JavaScript (Learning)</span>
-                </div>
-            </div>
-            <div class="glass-card" style="border-left: 4px solid var(--accent-purple);">
-                <h3 style="margin-bottom: 15px; color: #fff;"><i class="fas fa-music"></i> Creative</h3>
-                <div class="tech-tags">
-                    <span>FL Studio</span>
-                    <span>Music Production</span>
-                    <span>Vocals</span>
-                    <span>Typography</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="container" style="text-align: center; margin-bottom: 4rem;">
-        <h2>Let's Connect</h2>
-        <p style="color: #ccc; margin-bottom: 2rem;">Drop an email or check out my repos.</p>
+        <h1>KEERTHIK ROSHAN G</h1>
+        <div class="subtitle">Data Science Intern</div>
         
-        <div class="contact-grid">
-            <a href="mailto:gkrosh.0712@gmail.com" class="icon-link" title="Email"><i class="fas fa-envelope"></i></a>
-            <a href="https://linkedin.com/in/keerthikroshan" target="_blank" class="icon-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://github.com/KeerthikRoshan7" target="_blank" class="icon-link" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://instagram.com/roznmusic" target="_blank" class="icon-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <div class="social-header">CONNECT WITH ME</div>
+        <div class="social-icons">
+            <a href="mailto:gkrosh.0712@gmail.com" title="Email"><i class="far fa-envelope"></i></a>
+            <a href="https://instagram.com/roznmusic" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/KeerthikRoshan7" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/keerthikroshan" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
-    </section>
+    </div>
 
-    <footer style="text-align: center; padding: 2rem; color: #555; border-top: 1px solid rgba(255,255,255,0.1);">
-        <p>© 2026 Keerthik Roshan G. Built with Code & Sound.</p>
-    </footer>
+    <div class="right-col">
+        
+        <div class="section-header">ABOUT ME</div>
+        <h2>Logic & Rhythm</h2>
+        <p>I am a 20-year-old AI & Data Science student driven by the urge to experiment with LLMs and Agentic AI. I actively explore open-source ecosystems to deploy tech effectively. When I'm not training models, I'm analyzing legal frameworks or channeling creativity into Music Production.</p>
+        
+        <hr class="divider">
+        
+        <div class="section-header">EDUCATION</div>
+        <div class="timeline-item">
+            <div class="timeline-year">2027</div>
+            <div class="timeline-content">
+                <h3>B.Tech in AI & Data Science</h3>
+                <span>M.I.E.T. Engineering College<br>Trichy</span>
+            </div>
+        </div>
 
-    <script>
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
+        <hr class="divider">
+        
+        <div class="section-header">EXPERIENCE</div>
+        <div class="timeline-item">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-content">
+                <h3>Data Science Intern</h3>
+                <span>DigiDARA Technologies<br>Deployed predictive models & conducted EDA.</span>
+            </div>
+        </div>
 
-        // Set canvas size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        <div class="timeline-item" style="margin-top: 1rem;">
+            <div class="timeline-year">PROJ</div>
+            <div class="timeline-content">
+                <h3>VidhiDesk</h3>
+                <span>Python-based legal research assistant in progress.</span>
+            </div>
+        </div>
 
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
+        <a href="#" class="btn-resume">RESUME</a>
+        
+    </div>
 
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
-                // Royal Blue and Purple Colors
-                let color = Math.random() > 0.5 ? 'rgba(37, 99, 235, 0.7)' : 'rgba(147, 51, 234, 0.7)'; 
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-        }
-
-        window.addEventListener('resize', function() {
-            canvas.width = innerWidth;
-            canvas.height = innerHeight;
-            init();
-        });
-
-        init();
-        animate();
-    </script>
 </body>
 </html>
